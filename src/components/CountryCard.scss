@@ -1,0 +1,36 @@
+@import "../style//style.scss";
+
+.card{
+    cursor: pointer;
+    width: 30rem;
+    background-color: $lightModeElement;
+    margin: 3rem;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 7px #ccc;
+    transform: visibility 0.1s;
+    >img{
+        display: block;
+        width: 100%;
+        object-fit: cover;
+        height: 200px;
+    }
+    &__content{
+        margin: 1rem 3rem;
+        padding: 1rem 0;
+    }
+    &__name{
+        font-size: $fz-large;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        @include breakpoint-up("medium"){
+            font-size: $fz-xlarge;
+        }
+    }
+    &__details{
+        >p{
+            margin: 0.8rem 0;
+        }
+    }
+}
+
