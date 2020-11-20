@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import CountryCard from "./components/CountryCard";
 import CountryModal from "./components/CountryModal";
-import "./Countries.scss";
 import {
   faChevronDown,
   faMoon,
@@ -9,7 +8,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Countries() {
+import { CountriesWrapper } from "./style/Countries.style";
+
+export default function Countries(props) {
   const filter = useRef();
 
   const [region, setRegion] = useState("Filter by Region");
@@ -126,7 +127,9 @@ export default function Countries() {
   let chosenCountry;
   let modalCountry;
   if (clickedCountry) {
-    modalCountry = countries.find((country) => country.name.toLowerCase().includes(clickedCountry.toLowerCase()));
+    modalCountry = countries.find((country) =>
+      country.name.toLowerCase().includes(clickedCountry.toLowerCase())
+    );
     chosenCountry = (
       <CountryModal
         name={modalCountry.name}
@@ -142,6 +145,7 @@ export default function Countries() {
         nativeName={modalCountry.nativeName}
         isModalOpened={isModalOpened}
         setModalOpened={setModalOpened}
+        // clickCountry={handleClickCountry}
       />
     );
   }
@@ -165,12 +169,16 @@ export default function Countries() {
     setSearchValue(e.target.value);
   };
 
+  const handleToggleTheme = () => {
+    props.toggleTheme();
+  };
+
   return (
-    <div>
+    <CountriesWrapper>
       <header className="header">
         <div className="top-bar container">
           <div className="top-bar__left">Where in the world?</div>
-          <div className="top-bar__right">
+          <div className="top-bar__right" onClick={handleToggleTheme}>
             <FontAwesomeIcon icon={faMoon} className="icon" />
             <span>Dark Mode</span>
           </div>
@@ -195,33 +203,32 @@ export default function Countries() {
               <span>{region}</span>
               <FontAwesomeIcon icon={faChevronDown} className="icon" />
             </div>
-            
-              <ul className={isFilter? "filter" : "noFilter"}>
-                <li onClick={handleFilterRegion} value="All">
-                  All
-                </li>
-                <li onClick={handleFilterRegion} value="Africa">
-                  Africa
-                </li>
-                <li onClick={handleFilterRegion} value="Americas">
-                  Americas
-                </li>
-                <li onClick={handleFilterRegion} value="Asia">
-                  Asia
-                </li>
-                <li onClick={handleFilterRegion} value="Europe">
-                  Europe
-                </li>
-                <li onClick={handleFilterRegion} value="Oceania">
-                  Oceania
-                </li>
-              </ul>
-           
+
+            <ul className={isFilter ? "filter" : "noFilter"}>
+              <li onClick={handleFilterRegion} value="All">
+                All
+              </li>
+              <li onClick={handleFilterRegion} value="Africa">
+                Africa
+              </li>
+              <li onClick={handleFilterRegion} value="Americas">
+                Americas
+              </li>
+              <li onClick={handleFilterRegion} value="Asia">
+                Asia
+              </li>
+              <li onClick={handleFilterRegion} value="Europe">
+                Europe
+              </li>
+              <li onClick={handleFilterRegion} value="Oceania">
+                Oceania
+              </li>
+            </ul>
           </div>
         </div>
         <div className="countries">{countriesInfo}</div>
       </section>
       {chosenCountry}
-    </div>
+    </CountriesWrapper>
   );
 }
