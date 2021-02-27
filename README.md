@@ -1,8 +1,5 @@
 # How to start
 1. Install dependencies
-    ``` 
-    cd frontend
-    ```
     ```
     npm i 
     ```
